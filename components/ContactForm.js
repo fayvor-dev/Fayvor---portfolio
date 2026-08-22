@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { IconArrow } from '@/components/Icons';
-import { site } from '@/lib/data';
+import { submitContactForm } from '@/app/actions';
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [sent, setSent] = useState(false);
+  const [result, setResult] = useState(null); // { status: 'success' | 'error', message }
+  const [isPending, startTransition] = useTransition();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -14,12 +15,14 @@ export default function ContactForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`New project enquiry from ${form.name || 'website'}`);
-    const body = encodeURIComponent(
-      `${form.message}\n\n—\nFrom: ${form.name}\nEmail: ${form.email}`
-    );
-    window.location.href = `${site.emailHref}?subject=${subject}&body=${body}`;
-    setSent(true);
+    setResult(null);
+    startTransition(async () => {
+      const res = await submitContactForm(form);
+      setResult(res);
+      if (res.status === 'success') {
+        setForm({ name: '', email: '', message: '' });
+      }
+    });
   };
 
   return (
@@ -36,7 +39,8 @@ export default function ContactForm() {
             required
             value={form.name}
             onChange={handleChange}
-            className="w-full bg-transparent border border-cream/25 px-4 py-3 text-sm text-cream placeholder:text-cream/30 focus:border-gold outline-none transition-colors"
+            disabled={isPending}
+            className="w-full bg-transparent border border-cream/25 px-4 py-3 text-sm text-cream placeholder:text-cream/30 focus:border-gold outline-none transition-colors disabled:opacity-50"
             placeholder="Ada Lovelace"
           />
         </div>
@@ -51,7 +55,8 @@ export default function ContactForm() {
             required
             value={form.email}
             onChange={handleChange}
-            className="w-full bg-transparent border border-cream/25 px-4 py-3 text-sm text-cream placeholder:text-cream/30 focus:border-gold outline-none transition-colors"
+            disabled={isPending}
+            className="w-full bg-transparent border border-cream/25 px-4 py-3 text-sm text-cream placeholder:text-cream/30 focus:border-gold outline-none transition-colors disabled:opacity-50"
             placeholder="you@email.com"
           />
         </div>
@@ -67,19 +72,26 @@ export default function ContactForm() {
           required
           value={form.message}
           onChange={handleChange}
-          className="w-full bg-transparent border border-cream/25 px-4 py-3 text-sm text-cream placeholder:text-cream/30 focus:border-gold outline-none transition-colors resize-none"
+          disabled={isPending}
+          className="w-full bg-transparent border border-cream/25 px-4 py-3 text-sm text-cream placeholder:text-cream/30 focus:border-gold outline-none transition-colors resize-none disabled:opacity-50"
           placeholder="Tell me a bit about what you need — a logo, a website, a 3D experience..."
         />
       </div>
       <button
         type="submit"
-        className="inline-flex items-center gap-2 bg-gold text-navy-950 px-7 py-3.5 font-mono text-xs tracking-[0.15em] uppercase hover:bg-gold-light transition-colors"
+        disabled={isPending}
+        className="inline-flex items-center gap-2 bg-gold text-navy-950 px-7 py-3.5 font-mono text-xs tracking-[0.15em] uppercase hover:bg-gold-light transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        Send Message <IconArrow className="h-4 w-4" />
+        {isPending ? 'Sending…' : 'Send Message'} <IconArrow className="h-4 w-4" />
       </button>
-      {sent && (
-        <p className="font-mono text-xs text-gold pt-1">
-          Opening your email app with this message pre-filled &mdash; hit send there to reach me.
+      {result && (
+        <p
+          role="status"
+          className={`font-mono text-xs pt-1 ${
+            result.status === 'success' ? 'text-gold' : 'text-red-400'
+          }`}
+        >
+          {result.message}
         </p>
       )}
     </form>
