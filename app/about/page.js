@@ -1,4 +1,6 @@
+import Image from 'next/image';
 import CornerFrame from '@/components/CornerFrame';
+import Reveal from '@/components/Reveal';
 import { skills, site } from '@/lib/data';
 
 export const metadata = {
@@ -30,12 +32,21 @@ const values = [
 export default function AboutPage() {
   return (
     <>
-      <section className="bg-navy-950 text-cream">
+      <section className="bg-navy-950 text-cream overflow-hidden">
         <div className="mx-auto max-w-6xl px-5 sm:px-8 pt-16 pb-20 sm:pt-20 grid md:grid-cols-[0.85fr_1.15fr] gap-12 items-center">
-          <CornerFrame className="border border-cream/15 bg-navy-900 aspect-[4/5] flex items-center justify-center">
-            <span className="font-display text-8xl italic text-gold/90">{site.initials}</span>
-          </CornerFrame>
-          <div>
+          <Reveal>
+            <CornerFrame className="relative border border-cream/15 bg-navy-900 aspect-[4/5] overflow-hidden group">
+              <Image
+                src="/images/favour-portrait.jpg"
+                alt={`${site.name}, ${site.role}`}
+                fill
+                sizes="(max-width: 768px) 90vw, 400px"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                priority
+              />
+            </CornerFrame>
+          </Reveal>
+          <Reveal delay={120}>
             <p className="eyebrow-light mb-5">About Me</p>
             <h1 className="font-display text-4xl sm:text-5xl leading-[1.05]">
               Hi, I&rsquo;m {site.name}.
@@ -54,32 +65,36 @@ export default function AboutPage() {
               and holding an audience&rsquo;s attention &mdash; skills that
               carry straight into how I design for the web.
             </p>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* Quick facts */}
       <section className="mx-auto max-w-6xl px-5 sm:px-8 py-14 grid sm:grid-cols-4 gap-6 border-b border-navy/10">
-        {facts.map((f) => (
-          <div key={f.label}>
+        {facts.map((f, i) => (
+          <Reveal key={f.label} delay={i * 80}>
             <p className="eyebrow mb-2">{f.label}</p>
             <p className="font-display text-lg text-navy-950">{f.value}</p>
-          </div>
+          </Reveal>
         ))}
       </section>
 
       {/* Values */}
       <section className="mx-auto max-w-6xl px-5 sm:px-8 py-20">
-        <p className="eyebrow mb-4">How I Work</p>
-        <h2 className="font-display text-3xl sm:text-4xl text-navy-950 mb-12 max-w-lg">
-          Three things that guide every project.
-        </h2>
+        <Reveal>
+          <p className="eyebrow mb-4">How I Work</p>
+          <h2 className="font-display text-3xl sm:text-4xl text-navy-950 mb-12 max-w-lg">
+            Three things that guide every project.
+          </h2>
+        </Reveal>
         <div className="grid sm:grid-cols-3 gap-8">
-          {values.map((v) => (
-            <div key={v.title} className="border-t-2 border-gold pt-5">
-              <h3 className="font-display text-xl text-navy-950 mb-3">{v.title}</h3>
-              <p className="text-sm text-ink/65 leading-relaxed">{v.description}</p>
-            </div>
+          {values.map((v, i) => (
+            <Reveal key={v.title} delay={i * 100}>
+              <div className="border-t-2 border-gold pt-5 h-full">
+                <h3 className="font-display text-xl text-navy-950 mb-3">{v.title}</h3>
+                <p className="text-sm text-ink/65 leading-relaxed">{v.description}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -87,17 +102,19 @@ export default function AboutPage() {
       {/* Skills */}
       <section className="bg-navy-950 text-cream py-16">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
-          <p className="eyebrow-light mb-6">Skills &amp; Tools</p>
-          <div className="flex flex-wrap gap-3">
-            {skills.map((skill) => (
-              <span
-                key={skill}
-                className="border border-cream/20 px-4 py-2 font-mono text-xs tracking-wide uppercase text-cream/80 hover:border-gold hover:text-gold transition-colors"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
+          <Reveal>
+            <p className="eyebrow-light mb-6">Skills &amp; Tools</p>
+            <div className="flex flex-wrap gap-3">
+              {skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="border border-cream/20 px-4 py-2 font-mono text-xs tracking-wide uppercase text-cream/80 hover:border-gold hover:text-gold hover:-translate-y-0.5 transition-all"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
     </>

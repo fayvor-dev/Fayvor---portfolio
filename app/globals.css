@@ -90,6 +90,14 @@
     html {
       scroll-behavior: auto;
     }
+    .reveal {
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .animate-ping {
+      animation: none !important;
+    }
   }
 
   .bg-noise {

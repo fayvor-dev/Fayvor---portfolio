@@ -1,5 +1,7 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import CornerFrame from '@/components/CornerFrame';
+import Reveal from '@/components/Reveal';
 import { IconArrow, IconCube, IconCode, IconDesign } from '@/components/Icons';
 import { services, projects, skills, site } from '@/lib/data';
 
@@ -71,13 +73,19 @@ export default function HomePage() {
       </section>
 
       {/* ABOUT TEASER */}
-      <section className="mx-auto max-w-6xl px-5 sm:px-8 py-20 grid md:grid-cols-[0.9fr_1.1fr] gap-12 items-center">
-        <CornerFrame className="border border-navy/15 bg-navy-950 aspect-[4/5] flex items-center justify-center">
-          <span className="font-display text-7xl italic text-gold/90">
-            {site.initials}
-          </span>
-        </CornerFrame>
-        <div>
+      <section className="mx-auto max-w-6xl px-5 sm:px-8 py-20 grid md:grid-cols-[0.9fr_1.1fr] gap-12 items-center overflow-hidden">
+        <Reveal>
+          <CornerFrame className="relative border border-navy/15 bg-navy-950 aspect-[4/5] overflow-hidden group">
+            <Image
+              src="/images/favour-portrait.jpg"
+              alt={site.name}
+              fill
+              sizes="(max-width: 768px) 90vw, 400px"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+          </CornerFrame>
+        </Reveal>
+        <Reveal delay={120}>
           <p className="eyebrow mb-4">About</p>
           <h2 className="font-display text-3xl sm:text-4xl text-navy-950 leading-tight">
             A designer&rsquo;s eye, a developer&rsquo;s follow-through.
@@ -95,34 +103,38 @@ export default function HomePage() {
           >
             More about me <IconArrow className="h-3.5 w-3.5" />
           </Link>
-        </div>
+        </Reveal>
       </section>
 
       {/* SERVICES TEASER */}
       <section className="bg-navy-950 text-cream py-20">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
-          <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
-            <div>
-              <p className="eyebrow-light mb-4">What I Do</p>
-              <h2 className="font-display text-3xl sm:text-4xl">Services</h2>
+          <Reveal>
+            <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
+              <div>
+                <p className="eyebrow-light mb-4">What I Do</p>
+                <h2 className="font-display text-3xl sm:text-4xl">Services</h2>
+              </div>
+              <Link
+                href="/services"
+                className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.15em] uppercase text-gold border-b border-gold/50 pb-1 hover:border-gold transition-colors"
+              >
+                All services <IconArrow className="h-3.5 w-3.5" />
+              </Link>
             </div>
-            <Link
-              href="/services"
-              className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.15em] uppercase text-gold border-b border-gold/50 pb-1 hover:border-gold transition-colors"
-            >
-              All services <IconArrow className="h-3.5 w-3.5" />
-            </Link>
-          </div>
+          </Reveal>
           <div className="grid sm:grid-cols-3 gap-6">
             {services.map((s, i) => {
               const Icon = [IconDesign, IconCode, IconCube][i];
               return (
-                <div key={s.title} className="border border-cream/15 p-7 hover:border-gold/60 transition-colors">
-                  <Icon className="h-9 w-9 text-gold mb-6" />
-                  <p className="eyebrow-light mb-2">{s.tag}</p>
-                  <h3 className="font-display text-xl mb-3">{s.title}</h3>
-                  <p className="text-sm text-cream/60 leading-relaxed">{s.description}</p>
-                </div>
+                <Reveal key={s.title} delay={i * 100}>
+                  <div className="border border-cream/15 p-7 h-full hover:border-gold/60 hover:-translate-y-1 transition-all duration-300">
+                    <Icon className="h-9 w-9 text-gold mb-6" />
+                    <p className="eyebrow-light mb-2">{s.tag}</p>
+                    <h3 className="font-display text-xl mb-3">{s.title}</h3>
+                    <p className="text-sm text-cream/60 leading-relaxed">{s.description}</p>
+                  </div>
+                </Reveal>
               );
             })}
           </div>
@@ -131,27 +143,31 @@ export default function HomePage() {
 
       {/* PROJECTS TEASER */}
       <section className="mx-auto max-w-6xl px-5 sm:px-8 py-20">
-        <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
-          <div>
-            <p className="eyebrow mb-4">Selected Work</p>
-            <h2 className="font-display text-3xl sm:text-4xl text-navy-950">Featured Projects</h2>
+        <Reveal>
+          <div className="flex items-end justify-between flex-wrap gap-4 mb-12">
+            <div>
+              <p className="eyebrow mb-4">Selected Work</p>
+              <h2 className="font-display text-3xl sm:text-4xl text-navy-950">Featured Projects</h2>
+            </div>
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.15em] uppercase text-navy-950 border-b border-gold pb-1 hover:text-gold-dark transition-colors"
+            >
+              View all <IconArrow className="h-3.5 w-3.5" />
+            </Link>
           </div>
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 font-mono text-xs tracking-[0.15em] uppercase text-navy-950 border-b border-gold pb-1 hover:text-gold-dark transition-colors"
-          >
-            View all <IconArrow className="h-3.5 w-3.5" />
-          </Link>
-        </div>
+        </Reveal>
         <div className="grid sm:grid-cols-3 gap-6">
-          {featured.map((p) => (
-            <CornerFrame key={p.slug} className="border border-navy/10 bg-navy-950 text-cream p-6 flex flex-col justify-between min-h-[220px] hover:border-gold/40 transition-colors">
-              <div>
-                <p className="eyebrow-light mb-3">{p.category}</p>
-                <h3 className="font-display text-xl">{p.title}</h3>
-              </div>
-              <p className="mt-6 text-xs text-cream/50 font-mono">{p.year}</p>
-            </CornerFrame>
+          {featured.map((p, i) => (
+            <Reveal key={p.slug} delay={i * 100}>
+              <CornerFrame className="border border-navy/10 bg-navy-950 text-cream p-6 flex flex-col justify-between min-h-[220px] hover:border-gold/40 hover:-translate-y-1 transition-all duration-300">
+                <div>
+                  <p className="eyebrow-light mb-3">{p.category}</p>
+                  <h3 className="font-display text-xl">{p.title}</h3>
+                </div>
+                <p className="mt-6 text-xs text-cream/50 font-mono">{p.year}</p>
+              </CornerFrame>
+            </Reveal>
           ))}
         </div>
       </section>

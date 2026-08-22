@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Reveal from '@/components/Reveal';
 import { IconArrow, IconCode, IconCube, IconDesign } from '@/components/Icons';
 import { process, services, site } from '@/lib/data';
 
@@ -11,15 +12,17 @@ export default function ServicesPage() {
     <>
       <section className="bg-navy-950 text-cream">
         <div className="mx-auto max-w-6xl px-5 sm:px-8 pt-16 pb-14 sm:pt-20">
-          <p className="eyebrow-light mb-5">What I Offer</p>
-          <h1 className="font-display text-4xl sm:text-5xl max-w-2xl leading-[1.05]">
-            Design and development, under one roof.
-          </h1>
-          <p className="mt-6 max-w-lg text-cream/70 leading-relaxed">
-            Whether you need a brand from scratch, a website rebuilt, or an
-            interactive 3D experience your competitors don&rsquo;t have &mdash;
-            here&rsquo;s how I can help.
-          </p>
+          <Reveal>
+            <p className="eyebrow-light mb-5">What I Offer</p>
+            <h1 className="font-display text-4xl sm:text-5xl max-w-2xl leading-[1.05]">
+              Design and development, under one roof.
+            </h1>
+            <p className="mt-6 max-w-lg text-cream/70 leading-relaxed">
+              Whether you need a brand from scratch, a website rebuilt, or an
+              interactive 3D experience your competitors don&rsquo;t have &mdash;
+              here&rsquo;s how I can help.
+            </p>
+          </Reveal>
         </div>
       </section>
 
@@ -27,27 +30,26 @@ export default function ServicesPage() {
         {services.map((s, i) => {
           const Icon = [IconDesign, IconCode, IconCube][i];
           return (
-            <div
-              key={s.title}
-              className="grid md:grid-cols-[auto_1fr_auto] gap-6 md:items-center border border-navy/10 p-8 hover:border-gold/50 transition-colors"
-            >
-              <Icon className="h-12 w-12 text-gold" />
-              <div>
-                <p className="eyebrow mb-2">{s.tag}</p>
-                <h2 className="font-display text-2xl text-navy-950 mb-3">{s.title}</h2>
-                <p className="text-ink/65 leading-relaxed mb-4 max-w-xl">{s.description}</p>
-                <ul className="flex flex-wrap gap-2">
-                  {s.deliverables.map((d) => (
-                    <li
-                      key={d}
-                      className="font-mono text-[11px] tracking-wide uppercase text-navy-950/70 border border-navy/15 px-3 py-1.5"
-                    >
-                      {d}
-                    </li>
-                  ))}
-                </ul>
+            <Reveal key={s.title} delay={i * 100}>
+              <div className="grid md:grid-cols-[auto_1fr_auto] gap-6 md:items-center border border-navy/10 p-8 hover:border-gold/50 hover:-translate-y-0.5 transition-all duration-300">
+                <Icon className="h-12 w-12 text-gold" />
+                <div>
+                  <p className="eyebrow mb-2">{s.tag}</p>
+                  <h2 className="font-display text-2xl text-navy-950 mb-3">{s.title}</h2>
+                  <p className="text-ink/65 leading-relaxed mb-4 max-w-xl">{s.description}</p>
+                  <ul className="flex flex-wrap gap-2">
+                    {s.deliverables.map((d) => (
+                      <li
+                        key={d}
+                        className="font-mono text-[11px] tracking-wide uppercase text-navy-950/70 border border-navy/15 px-3 py-1.5"
+                      >
+                        {d}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
+            </Reveal>
           );
         })}
       </section>
@@ -55,17 +57,19 @@ export default function ServicesPage() {
       {/* Process — numbered because it is a real, ordered sequence */}
       <section className="bg-cream border-t border-navy/10 py-20">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
-          <p className="eyebrow mb-4">Process</p>
-          <h2 className="font-display text-3xl sm:text-4xl text-navy-950 mb-12 max-w-lg">
-            How a project moves from idea to launch.
-          </h2>
+          <Reveal>
+            <p className="eyebrow mb-4">Process</p>
+            <h2 className="font-display text-3xl sm:text-4xl text-navy-950 mb-12 max-w-lg">
+              How a project moves from idea to launch.
+            </h2>
+          </Reveal>
           <div className="grid sm:grid-cols-4 gap-8">
-            {process.map((p) => (
-              <div key={p.step}>
+            {process.map((p, i) => (
+              <Reveal key={p.step} delay={i * 100}>
                 <span className="font-display italic text-4xl text-gold">{p.step}</span>
                 <h3 className="font-display text-lg text-navy-950 mt-3 mb-2">{p.title}</h3>
                 <p className="text-sm text-ink/60 leading-relaxed">{p.description}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
