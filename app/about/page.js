@@ -33,11 +33,11 @@ const values = [
 export default function AboutPage() {
   return (
     <>
-      <section className="relative bg-navy-950 text-cream overflow-hidden">
-        <Glow variant="gold" />
+      <section className="relative bg-maroon-950 text-bone overflow-hidden">
+        <Glow variant="lime" />
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8 pt-16 pb-20 sm:pt-20 grid md:grid-cols-[0.85fr_1.15fr] gap-12 items-center">
           <Reveal variant="left">
-            <CornerFrame className="relative border border-cream/15 bg-navy-900 aspect-[4/5] overflow-hidden group">
+            <CornerFrame className="relative border border-bone/15 bg-maroon-900 aspect-[4/5] overflow-hidden group">
               <Image
                 src="/images/favour-portrait.jpg"
                 alt={`${site.name}, ${site.role}`}
@@ -53,7 +53,7 @@ export default function AboutPage() {
             <h1 className="font-display text-4xl sm:text-5xl leading-[1.05]">
               Hi, I&rsquo;m {site.name}.
             </h1>
-            <p className="mt-6 max-w-lg text-cream/70 leading-relaxed">
+            <p className="mt-6 max-w-lg text-bone/70 leading-relaxed">
               I&rsquo;m a graphic designer and web developer based in{' '}
               {site.location}, working with businesses who need a brand and a
               website that actually match. My work spans logo and identity
@@ -61,22 +61,23 @@ export default function AboutPage() {
               experiences built with Three.js &mdash; from dealership sites to
               exploded-view product viewers.
             </p>
-            <p className="mt-4 max-w-lg text-cream/70 leading-relaxed">
-              I also produce content for Happy Giggles Club, a children&rsquo;s
-              YouTube channel, which keeps me sharp on pacing, visual clarity,
-              and holding an audience&rsquo;s attention &mdash; skills that
-              carry straight into how I design for the web.
+            <p className="mt-4 max-w-lg text-bone/70 leading-relaxed">
+              Recent work leans into more cinematic, production-grade builds
+              &mdash; SKYVORA, a private-jet charter platform with a full
+              booking flow; Zenith Drive, a real Benin City dealership site;
+              and Veloura P&acirc;tisserie, an animated bakery brand with a
+              3D signature croissant at its centre.
             </p>
           </Reveal>
         </div>
       </section>
 
       {/* Quick facts */}
-      <section className="mx-auto max-w-6xl px-5 sm:px-8 py-14 grid sm:grid-cols-4 gap-6 border-b border-navy/10">
+      <section className="mx-auto max-w-6xl px-5 sm:px-8 py-14 grid sm:grid-cols-4 gap-6 border-b border-maroon/10">
         {facts.map((f, i) => (
           <Reveal key={f.label} delay={i * 80}>
             <p className="eyebrow mb-2">{f.label}</p>
-            <p className="font-display text-lg text-navy-950">{f.value}</p>
+            <p className="font-display text-lg text-maroon-950">{f.value}</p>
           </Reveal>
         ))}
       </section>
@@ -85,15 +86,15 @@ export default function AboutPage() {
       <section className="mx-auto max-w-6xl px-5 sm:px-8 py-20">
         <Reveal>
           <p className="eyebrow mb-4">How I Work</p>
-          <h2 className="font-display text-3xl sm:text-4xl text-navy-950 mb-12 max-w-lg">
+          <h2 className="font-display text-3xl sm:text-4xl text-maroon-950 mb-12 max-w-lg">
             Three things that guide every project.
           </h2>
         </Reveal>
         <div className="grid sm:grid-cols-3 gap-8">
           {values.map((v, i) => (
             <Reveal key={v.title} delay={i * 100} variant="scale">
-              <div className="border-t-2 border-gold pt-5 h-full">
-                <h3 className="font-display text-xl text-navy-950 mb-3">{v.title}</h3>
+              <div className="border-t-2 border-lime pt-5 h-full">
+                <h3 className="font-display text-xl text-maroon-950 mb-3">{v.title}</h3>
                 <p className="text-sm text-ink/65 leading-relaxed">{v.description}</p>
               </div>
             </Reveal>
@@ -102,7 +103,7 @@ export default function AboutPage() {
       </section>
 
       {/* Skills */}
-      <section className="bg-navy-950 text-cream py-16">
+      <section className="bg-maroon-950 text-bone py-16">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <Reveal>
             <p className="eyebrow-light mb-6">Skills &amp; Tools</p>
@@ -110,7 +111,7 @@ export default function AboutPage() {
               {skills.map((skill) => (
                 <span
                   key={skill}
-                  className="border border-cream/20 px-4 py-2 font-mono text-xs tracking-wide uppercase text-cream/80 hover:border-gold hover:text-gold hover:-translate-y-0.5 transition-all"
+                  className="border border-bone/20 px-4 py-2 font-mono text-xs tracking-wide uppercase text-bone/80 hover:border-lime hover:text-lime hover:-translate-y-0.5 transition-all"
                 >
                   {skill}
                 </span>

@@ -3,34 +3,35 @@ module.exports = {
   content: [
     './app/**/*.{js,jsx}',
     './components/**/*.{js,jsx}',
+    './lib/**/*.js',
   ],
   theme: {
     extend: {
       colors: {
-        navy: {
-          DEFAULT: '#14294A', // primary brand navy
-          950: '#081426',     // deepest, hero/footer bg
-          900: '#0B1B33',
-          800: '#0F2340',
-          700: '#1C325A',
+        maroon: {
+          DEFAULT: '#4A1620', // primary brand dark — deep oxblood, not navy
+          950: '#1B0A0F',     // deepest — hero/footer/nav bg
+          900: '#2A0F17',
+          800: '#3A141D',
+          700: '#5C1F2A',
         },
-        gold: {
-          DEFAULT: '#C9A227', // primary brand gold
-          light: '#E7C766',
-          dark: '#9C7D1B',
+        lime: {
+          DEFAULT: '#D7E639', // primary accent — bold acid lime, not gold
+          light: '#E9F17E',
+          dark: '#9DAE1F',
         },
-        copper: {
-          DEFAULT: '#B5652F', // web-development accent
-          light: '#D98B54',
-          dark: '#8A4B22',
+        clay: {
+          DEFAULT: '#C1642E', // web-development accent — burnt terracotta
+          light: '#E08A54',
+          dark: '#8A4620',
         },
-        teal: {
-          DEFAULT: '#1E6E68', // 3D/interactive accent
-          light: '#3F9D97',
-          dark: '#134B47',
+        sage: {
+          DEFAULT: '#4F8478', // 3D/interactive accent — dusty jewel sage
+          light: '#7BAFA3',
+          dark: '#2F5850',
         },
-        cream: '#F7F4EC',
-        ink: '#1B2230',
+        bone: '#F2EADC',
+        ink: '#20141A',
       },
       fontFamily: {
         display: ['var(--font-fraunces)', 'serif'],
@@ -62,9 +63,9 @@ module.exports = {
     },
   },
   safelist: [
-    'text-gold', 'border-gold/40', 'bg-gold',
-    'text-copper', 'border-copper/40', 'bg-copper',
-    'text-teal', 'border-teal/40', 'bg-teal',
+    'text-lime', 'border-lime/40', 'bg-lime',
+    'text-clay', 'border-clay/40', 'bg-clay',
+    'text-sage', 'border-sage/40', 'bg-sage',
   ],
   plugins: [],
 };

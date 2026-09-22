@@ -40,7 +40,7 @@ export default function ContactForm() {
             value={form.name}
             onChange={handleChange}
             disabled={isPending}
-            className="w-full bg-transparent border border-cream/25 px-4 py-3 text-sm text-cream placeholder:text-cream/30 focus:border-gold outline-none transition-colors disabled:opacity-50"
+            className="w-full bg-transparent border border-bone/25 px-4 py-3 text-sm text-bone placeholder:text-bone/30 focus:border-lime outline-none transition-colors disabled:opacity-50"
             placeholder="Ada Lovelace"
           />
         </div>
@@ -56,7 +56,7 @@ export default function ContactForm() {
             value={form.email}
             onChange={handleChange}
             disabled={isPending}
-            className="w-full bg-transparent border border-cream/25 px-4 py-3 text-sm text-cream placeholder:text-cream/30 focus:border-gold outline-none transition-colors disabled:opacity-50"
+            className="w-full bg-transparent border border-bone/25 px-4 py-3 text-sm text-bone placeholder:text-bone/30 focus:border-lime outline-none transition-colors disabled:opacity-50"
             placeholder="you@email.com"
           />
         </div>
@@ -73,14 +73,14 @@ export default function ContactForm() {
           value={form.message}
           onChange={handleChange}
           disabled={isPending}
-          className="w-full bg-transparent border border-cream/25 px-4 py-3 text-sm text-cream placeholder:text-cream/30 focus:border-gold outline-none transition-colors resize-none disabled:opacity-50"
+          className="w-full bg-transparent border border-bone/25 px-4 py-3 text-sm text-bone placeholder:text-bone/30 focus:border-lime outline-none transition-colors resize-none disabled:opacity-50"
           placeholder="Tell me a bit about what you need — a logo, a website, a 3D experience..."
         />
       </div>
       <button
         type="submit"
         disabled={isPending}
-        className="inline-flex items-center gap-2 bg-gold text-navy-950 px-7 py-3.5 font-mono text-xs tracking-[0.15em] uppercase hover:bg-gold-light transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        className="inline-flex items-center gap-2 bg-lime text-maroon-950 px-7 py-3.5 font-mono text-xs tracking-[0.15em] uppercase hover:bg-lime-light transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {isPending ? 'Sending…' : 'Send Message'} <IconArrow className="h-4 w-4" />
       </button>
@@ -88,7 +88,7 @@ export default function ContactForm() {
         <p
           role="status"
           className={`font-mono text-xs pt-1 ${
-            result.status === 'success' ? 'text-gold' : 'text-red-400'
+            result.status === 'success' ? 'text-lime' : 'text-red-400'
           }`}
         >
           {result.message}

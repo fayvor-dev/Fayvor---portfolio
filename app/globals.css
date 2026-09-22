@@ -7,26 +7,26 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-cream text-ink font-body antialiased;
+    @apply bg-bone text-ink font-body antialiased;
   }
   h1, h2, h3, h4 {
     @apply font-display;
   }
   ::selection {
-    @apply bg-gold/30 text-navy-950;
+    @apply bg-lime/30 text-maroon-950;
   }
   :focus-visible {
-    outline: 2px solid #C9A227;
+    outline: 2px solid #D7E639;
     outline-offset: 3px;
   }
 }
 
 @layer utilities {
   .eyebrow {
-    @apply font-mono text-[11px] tracking-[0.28em] uppercase text-gold-dark;
+    @apply font-mono text-[11px] tracking-[0.28em] uppercase text-clay-dark;
   }
   .eyebrow-light {
-    @apply font-mono text-[11px] tracking-[0.28em] uppercase text-gold;
+    @apply font-mono text-[11px] tracking-[0.28em] uppercase text-lime;
   }
 
   /* Signature element: selection-marquee corner brackets, borrowed from
@@ -42,7 +42,7 @@
     position: absolute;
     width: 18px;
     height: 18px;
-    border-color: #C9A227;
+    border-color: #D7E639;
     transition: width 0.25s ease, height 0.25s ease;
   }
   .corner-frame::before {

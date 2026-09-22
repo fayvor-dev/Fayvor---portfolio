@@ -11,19 +11,19 @@ export default function Testimonials() {
   if (!testimonials || testimonials.length === 0) return null;
 
   return (
-    <section className="bg-cream py-20 border-t border-navy/10">
+    <section className="bg-bone py-20 border-t border-maroon/10">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <Reveal>
           <p className="eyebrow mb-4">Client Feedback</p>
-          <h2 className="font-display text-3xl sm:text-4xl text-navy-950 mb-12 max-w-lg">
+          <h2 className="font-display text-3xl sm:text-4xl text-maroon-950 mb-12 max-w-lg">
             What clients say.
           </h2>
         </Reveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((t, i) => (
             <Reveal key={t.name} delay={i * 100} variant="scale">
-              <figure className="border-t-2 border-gold pt-6 h-full flex flex-col">
-                <blockquote className="font-display italic text-lg text-navy-950 leading-relaxed flex-1">
+              <figure className="border-t-2 border-lime pt-6 h-full flex flex-col">
+                <blockquote className="font-display italic text-lg text-maroon-950 leading-relaxed flex-1">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
                 <figcaption className="mt-6 font-mono text-xs tracking-wide uppercase text-ink/50">

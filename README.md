@@ -73,5 +73,5 @@ hosting provider that supports Next.js.
 
 ## Brand
 
-- Colours: Navy (`#14294A` / `#081426`) and Gold (`#C9A227`)
+- Colours: Deep oxblood maroon (`#4A1620` / `#1B0A0F`), acid lime (`#D7E639`), with terracotta clay and dusty sage as secondary accents
 - Fonts: Fraunces (headings), Inter (body), IBM Plex Mono (labels)

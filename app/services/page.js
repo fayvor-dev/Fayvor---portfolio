@@ -12,15 +12,15 @@ export const metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-navy-950 text-cream">
-        <Glow variant="copper" />
+      <section className="relative overflow-hidden bg-maroon-950 text-bone">
+        <Glow variant="clay" />
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8 pt-16 pb-14 sm:pt-20">
           <Reveal>
             <p className="eyebrow-light mb-5">What I Offer</p>
             <h1 className="font-display text-4xl sm:text-5xl max-w-2xl leading-[1.05]">
               Design and development, under one roof.
             </h1>
-            <p className="mt-6 max-w-lg text-cream/70 leading-relaxed">
+            <p className="mt-6 max-w-lg text-bone/70 leading-relaxed">
               Whether you need a brand from scratch, a website rebuilt, or an
               interactive 3D experience your competitors don&rsquo;t have &mdash;
               here&rsquo;s how I can help.
@@ -34,17 +34,17 @@ export default function ServicesPage() {
           const Icon = [IconDesign, IconCode, IconCube][i];
           return (
             <Reveal key={s.title} delay={i * 100} variant={i % 2 === 0 ? 'left' : 'right'}>
-              <div className="grid md:grid-cols-[auto_1fr_auto] gap-6 md:items-center border border-navy/10 p-8 hover:border-gold/50 hover:-translate-y-0.5 transition-all duration-300">
-                <Icon className="h-12 w-12 text-gold" />
+              <div className="grid md:grid-cols-[auto_1fr_auto] gap-6 md:items-center border border-maroon/10 p-8 hover:border-lime/50 hover:-translate-y-0.5 transition-all duration-300">
+                <Icon className="h-12 w-12 text-lime" />
                 <div>
                   <CategoryTag category={s.tag} className="mb-2" />
-                  <h2 className="font-display text-2xl text-navy-950 mb-3">{s.title}</h2>
+                  <h2 className="font-display text-2xl text-maroon-950 mb-3">{s.title}</h2>
                   <p className="text-ink/65 leading-relaxed mb-4 max-w-xl">{s.description}</p>
                   <ul className="flex flex-wrap gap-2">
                     {s.deliverables.map((d) => (
                       <li
                         key={d}
-                        className="font-mono text-[11px] tracking-wide uppercase text-navy-950/70 border border-navy/15 px-3 py-1.5"
+                        className="font-mono text-[11px] tracking-wide uppercase text-maroon-950/70 border border-maroon/15 px-3 py-1.5"
                       >
                         {d}
                       </li>
@@ -58,19 +58,19 @@ export default function ServicesPage() {
       </section>
 
       {/* Process — numbered because it is a real, ordered sequence */}
-      <section className="bg-cream border-t border-navy/10 py-20">
+      <section className="bg-bone border-t border-maroon/10 py-20">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           <Reveal>
             <p className="eyebrow mb-4">Process</p>
-            <h2 className="font-display text-3xl sm:text-4xl text-navy-950 mb-12 max-w-lg">
+            <h2 className="font-display text-3xl sm:text-4xl text-maroon-950 mb-12 max-w-lg">
               How a project moves from idea to launch.
             </h2>
           </Reveal>
           <div className="grid sm:grid-cols-4 gap-8">
             {process.map((p, i) => (
               <Reveal key={p.step} delay={i * 100} variant="scale">
-                <span className="font-display italic text-4xl text-gold">{p.step}</span>
-                <h3 className="font-display text-lg text-navy-950 mt-3 mb-2">{p.title}</h3>
+                <span className="font-display italic text-4xl text-lime">{p.step}</span>
+                <h3 className="font-display text-lg text-maroon-950 mt-3 mb-2">{p.title}</h3>
                 <p className="text-sm text-ink/60 leading-relaxed">{p.description}</p>
               </Reveal>
             ))}
@@ -78,14 +78,14 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="bg-gold text-navy-950">
+      <section className="bg-lime text-maroon-950">
         <div className="mx-auto max-w-6xl px-5 sm:px-8 py-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <h2 className="font-display text-3xl sm:text-4xl max-w-md leading-tight">
             Not sure which service you need?
           </h2>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-navy-950 text-cream px-7 py-3.5 font-mono text-xs tracking-[0.15em] uppercase hover:bg-navy-900 transition-colors whitespace-nowrap"
+            className="inline-flex items-center gap-2 bg-maroon-950 text-bone px-7 py-3.5 font-mono text-xs tracking-[0.15em] uppercase hover:bg-maroon-900 transition-colors whitespace-nowrap"
           >
             Tell me about your project <IconArrow className="h-4 w-4" />
           </Link>

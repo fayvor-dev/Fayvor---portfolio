@@ -3,13 +3,13 @@
  * Purely decorative — aria-hidden, absolutely positioned within a
  * `relative` + `overflow-hidden` parent.
  */
-export default function Glow({ variant = 'gold' }) {
+export default function Glow({ variant = 'lime' }) {
   const colors = {
-    gold: ['#C9A227', '#B5652F'],
-    teal: ['#1E6E68', '#14294A'],
-    copper: ['#B5652F', '#C9A227'],
+    lime: ['#D7E639', '#C1642E'],
+    sage: ['#4F8478', '#1B0A0F'],
+    clay: ['#C1642E', '#D7E639'],
   };
-  const [c1, c2] = colors[variant] || colors.gold;
+  const [c1, c2] = colors[variant] || colors.lime;
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
