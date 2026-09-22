@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import CategoryTag from '@/components/CategoryTag';
+import Glow from '@/components/Glow';
 import Reveal from '@/components/Reveal';
 import { IconArrow, IconCode, IconCube, IconDesign } from '@/components/Icons';
 import { process, services, site } from '@/lib/data';
@@ -10,8 +12,9 @@ export const metadata = {
 export default function ServicesPage() {
   return (
     <>
-      <section className="bg-navy-950 text-cream">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 pt-16 pb-14 sm:pt-20">
+      <section className="relative overflow-hidden bg-navy-950 text-cream">
+        <Glow variant="copper" />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-8 pt-16 pb-14 sm:pt-20">
           <Reveal>
             <p className="eyebrow-light mb-5">What I Offer</p>
             <h1 className="font-display text-4xl sm:text-5xl max-w-2xl leading-[1.05]">
@@ -30,11 +33,11 @@ export default function ServicesPage() {
         {services.map((s, i) => {
           const Icon = [IconDesign, IconCode, IconCube][i];
           return (
-            <Reveal key={s.title} delay={i * 100}>
+            <Reveal key={s.title} delay={i * 100} variant={i % 2 === 0 ? 'left' : 'right'}>
               <div className="grid md:grid-cols-[auto_1fr_auto] gap-6 md:items-center border border-navy/10 p-8 hover:border-gold/50 hover:-translate-y-0.5 transition-all duration-300">
                 <Icon className="h-12 w-12 text-gold" />
                 <div>
-                  <p className="eyebrow mb-2">{s.tag}</p>
+                  <CategoryTag category={s.tag} className="mb-2" />
                   <h2 className="font-display text-2xl text-navy-950 mb-3">{s.title}</h2>
                   <p className="text-ink/65 leading-relaxed mb-4 max-w-xl">{s.description}</p>
                   <ul className="flex flex-wrap gap-2">
@@ -65,7 +68,7 @@ export default function ServicesPage() {
           </Reveal>
           <div className="grid sm:grid-cols-4 gap-8">
             {process.map((p, i) => (
-              <Reveal key={p.step} delay={i * 100}>
+              <Reveal key={p.step} delay={i * 100} variant="scale">
                 <span className="font-display italic text-4xl text-gold">{p.step}</span>
                 <h3 className="font-display text-lg text-navy-950 mt-3 mb-2">{p.title}</h3>
                 <p className="text-sm text-ink/60 leading-relaxed">{p.description}</p>

@@ -1,5 +1,9 @@
+import Link from 'next/link';
+import CategoryTag from '@/components/CategoryTag';
 import CornerFrame from '@/components/CornerFrame';
+import Glow from '@/components/Glow';
 import Reveal from '@/components/Reveal';
+import { IconArrow } from '@/components/Icons';
 import { projects, site } from '@/lib/data';
 
 export const metadata = {
@@ -9,8 +13,9 @@ export const metadata = {
 export default function ProjectsPage() {
   return (
     <>
-      <section className="bg-navy-950 text-cream">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 pt-16 pb-14 sm:pt-20">
+      <section className="relative overflow-hidden bg-navy-950 text-cream">
+        <Glow variant="gold" />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-8 pt-16 pb-14 sm:pt-20">
           <Reveal>
             <p className="eyebrow-light mb-5">Selected Work</p>
             <h1 className="font-display text-4xl sm:text-5xl max-w-2xl leading-[1.05]">
@@ -18,7 +23,8 @@ export default function ProjectsPage() {
             </h1>
             <p className="mt-6 max-w-lg text-cream/70 leading-relaxed">
               From dealership websites to interactive 3D product viewers &mdash;
-              a look at recent design and development work.
+              a look at recent design and development work. Open a project
+              for the full case study.
             </p>
           </Reveal>
         </div>
@@ -27,26 +33,28 @@ export default function ProjectsPage() {
       <section className="mx-auto max-w-6xl px-5 sm:px-8 py-20">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((p, i) => (
-            <Reveal key={p.slug} delay={(i % 3) * 100}>
-              <CornerFrame
-                className="border border-navy/10 bg-white p-7 flex flex-col h-full hover:border-gold/60 hover:-translate-y-1 transition-all duration-300"
-              >
-                <p className="eyebrow mb-3">{p.category}</p>
-                <h2 className="font-display text-xl text-navy-950 mb-3">{p.title}</h2>
-                <p className="text-sm text-ink/65 leading-relaxed flex-1">{p.description}</p>
-                <div className="mt-6 pt-5 border-t border-navy/10 flex items-center justify-between">
-                  <ul className="flex flex-wrap gap-x-3 gap-y-1">
-                    {p.tags.map((tag) => (
-                      <li key={tag} className="font-mono text-[10px] tracking-wide uppercase text-navy-950/50">
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
-                  <span className="font-mono text-[10px] tracking-wide text-gold-dark whitespace-nowrap ml-3">
-                    {p.year}
-                  </span>
-                </div>
-              </CornerFrame>
+            <Reveal key={p.slug} delay={(i % 3) * 100} variant={i % 2 === 0 ? 'up' : 'scale'}>
+              <Link href={`/projects/${p.slug}`} className="block h-full group">
+                <CornerFrame
+                  className="border border-navy/10 bg-white p-7 flex flex-col h-full hover:border-gold/60 hover:-translate-y-1 transition-all duration-300"
+                >
+                  <CategoryTag category={p.category} className="mb-3" />
+                  <h2 className="font-display text-xl text-navy-950 mb-3">{p.title}</h2>
+                  <p className="text-sm text-ink/65 leading-relaxed flex-1">{p.description}</p>
+                  <div className="mt-6 pt-5 border-t border-navy/10 flex items-center justify-between">
+                    <ul className="flex flex-wrap gap-x-3 gap-y-1">
+                      {p.tags.map((tag) => (
+                        <li key={tag} className="font-mono text-[10px] tracking-wide uppercase text-navy-950/50">
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
+                    <span className="inline-flex items-center gap-1 font-mono text-[10px] tracking-wide text-gold-dark whitespace-nowrap ml-3 group-hover:gap-2 transition-all">
+                      Case study <IconArrow className="h-3 w-3" />
+                    </span>
+                  </div>
+                </CornerFrame>
+              </Link>
             </Reveal>
           ))}
         </div>

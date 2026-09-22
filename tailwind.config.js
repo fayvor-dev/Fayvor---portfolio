@@ -19,6 +19,16 @@ module.exports = {
           light: '#E7C766',
           dark: '#9C7D1B',
         },
+        copper: {
+          DEFAULT: '#B5652F', // web-development accent
+          light: '#D98B54',
+          dark: '#8A4B22',
+        },
+        teal: {
+          DEFAULT: '#1E6E68', // 3D/interactive accent
+          light: '#3F9D97',
+          dark: '#134B47',
+        },
         cream: '#F7F4EC',
         ink: '#1B2230',
       },
@@ -39,12 +49,22 @@ module.exports = {
           '0%': { opacity: '0', transform: 'translateY(14px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        float: {
+          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+          '50%': { transform: 'translate(2%, -3%) scale(1.05)' },
+        },
       },
       animation: {
         marquee: 'marquee 28s linear infinite',
         fadeUp: 'fadeUp 0.7s ease-out both',
+        float: 'float 14s ease-in-out infinite',
       },
     },
   },
+  safelist: [
+    'text-gold', 'border-gold/40', 'bg-gold',
+    'text-copper', 'border-copper/40', 'bg-copper',
+    'text-teal', 'border-teal/40', 'bg-teal',
+  ],
   plugins: [],
 };

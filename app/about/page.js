@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import CornerFrame from '@/components/CornerFrame';
+import Glow from '@/components/Glow';
 import Reveal from '@/components/Reveal';
 import { skills, site } from '@/lib/data';
 
@@ -32,9 +33,10 @@ const values = [
 export default function AboutPage() {
   return (
     <>
-      <section className="bg-navy-950 text-cream overflow-hidden">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 pt-16 pb-20 sm:pt-20 grid md:grid-cols-[0.85fr_1.15fr] gap-12 items-center">
-          <Reveal>
+      <section className="relative bg-navy-950 text-cream overflow-hidden">
+        <Glow variant="gold" />
+        <div className="relative mx-auto max-w-6xl px-5 sm:px-8 pt-16 pb-20 sm:pt-20 grid md:grid-cols-[0.85fr_1.15fr] gap-12 items-center">
+          <Reveal variant="left">
             <CornerFrame className="relative border border-cream/15 bg-navy-900 aspect-[4/5] overflow-hidden group">
               <Image
                 src="/images/favour-portrait.jpg"
@@ -46,7 +48,7 @@ export default function AboutPage() {
               />
             </CornerFrame>
           </Reveal>
-          <Reveal delay={120}>
+          <Reveal delay={120} variant="right">
             <p className="eyebrow-light mb-5">About Me</p>
             <h1 className="font-display text-4xl sm:text-5xl leading-[1.05]">
               Hi, I&rsquo;m {site.name}.
@@ -89,7 +91,7 @@ export default function AboutPage() {
         </Reveal>
         <div className="grid sm:grid-cols-3 gap-8">
           {values.map((v, i) => (
-            <Reveal key={v.title} delay={i * 100}>
+            <Reveal key={v.title} delay={i * 100} variant="scale">
               <div className="border-t-2 border-gold pt-5 h-full">
                 <h3 className="font-display text-xl text-navy-950 mb-3">{v.title}</h3>
                 <p className="text-sm text-ink/65 leading-relaxed">{v.description}</p>
