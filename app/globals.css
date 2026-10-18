@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    overflow-x: clip;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-ivory text-charcoal font-sans antialiased;
+    overflow-x: clip;
+  }
+  h1, h2, h3 {
+    letter-spacing: -0.025em;
+  }
+  ::selection {
+    background: #2340E6;
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid #2340E6;
+    outline-offset: 3px;
+  }
+  .on-dark :focus-visible {
+    outline-color: #8EA2FF;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10;
+  }
+  .label {
+    @apply text-sm font-medium text-muted;
+  }
+  .link-line {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s ease;
+  }
+  .link-line:hover {
+    background-size: 0 1px;
+  }
+}
+
+/* Hero entrance: lines slide up out of a mask, the rest fades up. */
+@keyframes mask-rise {
+  from { transform: translateY(105%); }
+  to { transform: translateY(0); }
+}
+@keyframes fade-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scroll-cue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(35, 64, 230, 0.45); }
+  50% { box-shadow: 0 0 0 6px rgba(35, 64, 230, 0); }
+}
+.mask-line { display: block; overflow: hidden; padding-bottom: 0.08em; }
+.mask-line > span {
+  display: block;
+  animation: mask-rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+.fade-rise {
+  animation: fade-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+.scroll-cue::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #161616;
+  animation: scroll-cue 1.8s ease-in-out infinite;
+}
+.pulse-dot { animation: pulse-dot 2.4s ease-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .scroll-cue::after { display: none; }
+}
