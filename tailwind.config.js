@@ -4,14 +4,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ivory: { DEFAULT: '#F5F1E8', 50: '#FBF9F4', 100: '#F5F1E8', 200: '#EBE5D6', 300: '#DAD2BF' },
-        charcoal: { DEFAULT: '#161616', 800: '#232220', 700: '#33312E', 600: '#4A4741' },
-        cobalt: { DEFAULT: '#2340E6', 600: '#1A32BF', 300: '#8EA2FF', 100: '#DDE3FF' },
-        muted: '#645F56',
+        ink: { DEFAULT: '#0C0C0C', 900: '#131313', 800: '#1B1B1B', 700: '#262626' },
+        mist: { DEFAULT: '#D7E2EA', dim: '#98A4AD' },
+        electric: { DEFAULT: '#4F7DFF', 300: '#8FAAFF', 600: '#3A62E0' },
+        paper: '#F3F0E8',
       },
       fontFamily: {
         sans: ['var(--font-grotesk)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-display)', 'Georgia', 'serif'],
+        display: ['var(--font-display)', 'system-ui', 'sans-serif'],
       },
     },
   },

@@ -6,25 +6,25 @@
   html {
     overflow-x: clip;
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 4.5rem;
   }
   body {
-    @apply bg-ivory text-charcoal font-sans antialiased;
+    @apply bg-ink text-mist font-sans antialiased;
     overflow-x: clip;
   }
   h1, h2, h3 {
-    letter-spacing: -0.025em;
+    letter-spacing: -0.03em;
   }
   ::selection {
-    background: #2340E6;
+    background: #4F7DFF;
     color: #fff;
   }
   :focus-visible {
-    outline: 2px solid #2340E6;
+    outline: 2px solid #8FAAFF;
     outline-offset: 3px;
   }
-  .on-dark :focus-visible {
-    outline-color: #8EA2FF;
+  .on-light :focus-visible {
+    outline-color: #3A62E0;
   }
 }
 
@@ -32,22 +32,20 @@
   .wrap {
     @apply mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10;
   }
-  .label {
-    @apply text-sm font-medium text-muted;
+  .silver {
+    display: inline-block;
+    padding-bottom: 0.12em;
+    background-image: linear-gradient(180deg, #ffffff 0%, #d7e2ea 48%, #8793a0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
-  .link-line {
-    background-image: linear-gradient(currentColor, currentColor);
-    background-size: 100% 1px;
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    transition: background-size 0.3s ease;
-  }
-  .link-line:hover {
-    background-size: 0 1px;
+  @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+    .silver { color: #d7e2ea; }
   }
 }
 
-/* Hero entrance: lines slide up out of a mask, the rest fades up. */
+/* Hero entrance */
 @keyframes mask-rise {
   from { transform: translateY(105%); }
   to { transform: translateY(0); }
@@ -60,14 +58,9 @@
   0% { transform: translateY(-100%); }
   100% { transform: translateY(100%); }
 }
-@keyframes pulse-dot {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(35, 64, 230, 0.45); }
-  50% { box-shadow: 0 0 0 6px rgba(35, 64, 230, 0); }
-}
-.mask-line { display: block; overflow: hidden; padding-bottom: 0.08em; }
+.mask-line { display: block; overflow: hidden; }
 .mask-line > span {
-  display: block;
-  animation: mask-rise 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: mask-rise 1.05s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   animation-delay: var(--d, 0ms);
 }
 .fade-rise {
@@ -78,10 +71,9 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: #161616;
+  background: #d7e2ea;
   animation: scroll-cue 1.8s ease-in-out infinite;
 }
-.pulse-dot { animation: pulse-dot 2.4s ease-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -92,4 +84,14 @@
   }
   .reveal { opacity: 1 !important; transform: none !important; }
   .scroll-cue::after { display: none; }
+  .reveal-word { opacity: 1 !important; }
+  /* Stacked project cards become a normal vertical list. */
+  .stack-wrap {
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+    padding-top: 0 !important;
+    margin-bottom: 2rem;
+  }
+  .stack-card { transform: none !important; }
 }

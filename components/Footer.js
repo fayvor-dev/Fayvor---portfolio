@@ -6,21 +6,21 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="on-dark border-t border-ivory/10 bg-charcoal text-ivory">
+    <footer className="border-t border-white/10 bg-ink">
       <div className="wrap grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
-          <p className="text-xl font-semibold tracking-tight">{site.name}</p>
-          <p className="mt-3 max-w-xs text-[15px] leading-relaxed text-ivory/60">
+          <p className="font-display text-xl font-bold tracking-tight">{site.name}</p>
+          <p className="mt-3 max-w-xs text-[15px] leading-relaxed text-mist-dim">
             {site.role} in {site.location}. Open to remote projects.
           </p>
         </div>
 
         <nav aria-label="Footer">
-          <p className="mb-4 text-sm font-medium text-ivory/50">Explore</p>
+          <p className="mb-4 text-sm font-medium text-mist-dim">Explore</p>
           <ul className="space-y-2.5 text-[15px]">
-            {nav.slice(1).map((item) => (
+            {nav.map((item) => (
               <li key={item.id}>
-                <Link href={item.href} className="text-ivory/85 transition-colors hover:text-cobalt-300">
+                <Link href={item.href} className="transition-colors hover:text-electric-300">
                   {item.label}
                 </Link>
               </li>
@@ -29,15 +29,20 @@ export default function Footer() {
         </nav>
 
         <div>
-          <p className="mb-4 text-sm font-medium text-ivory/50">Get in touch</p>
+          <p className="mb-4 text-sm font-medium text-mist-dim">Get in touch</p>
           <ul className="space-y-2.5 text-[15px]">
             <li>
-              <a href={site.emailHref} className="break-all text-ivory/85 transition-colors hover:text-cobalt-300">
+              <a href={site.emailHref} className="break-all transition-colors hover:text-electric-300">
                 {site.email}
               </a>
             </li>
             <li>
-              <a href={site.whatsappHref} target="_blank" rel="noopener noreferrer" className="text-ivory/85 transition-colors hover:text-cobalt-300">
+              <a
+                href={site.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-electric-300"
+              >
                 WhatsApp {site.phone}
               </a>
             </li>
@@ -46,7 +51,7 @@ export default function Footer() {
                 href={site.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-ivory/85 transition-colors hover:text-cobalt-300"
+                className="inline-flex items-center gap-2 transition-colors hover:text-electric-300"
               >
                 <IconGithub className="h-4 w-4" /> GitHub
               </a>
@@ -55,8 +60,8 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-ivory/10">
-        <div className="wrap flex flex-col gap-2 py-5 text-sm text-ivory/50 sm:flex-row sm:items-center sm:justify-between">
+      <div className="border-t border-white/10">
+        <div className="wrap flex flex-col gap-2 py-5 text-sm text-mist-dim sm:flex-row sm:items-center sm:justify-between">
           <span>&copy; {year} {site.name}</span>
           <span>Redesign concepts are independent portfolio work, not affiliated with the businesses shown.</span>
         </div>

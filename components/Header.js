@@ -9,24 +9,22 @@ export default function Header() {
   const pathname = usePathname();
   const isHome = pathname === '/';
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState('top');
+  const [active, setActive] = useState('');
   const [open, setOpen] = useState(false);
   const menuRef = useRef(null);
   const toggleRef = useRef(null);
 
-  // Subtle header change on scroll.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 16);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Scroll-spy: which section is currently in the middle of the viewport.
+  // Highlight the section currently in the middle of the viewport.
   useEffect(() => {
     if (!isHome) return;
     const els = nav.map((n) => document.getElementById(n.id)).filter(Boolean);
-    if (!els.length) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -74,18 +72,17 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-colors duration-300 ${
-        scrolled ? 'border-b border-charcoal/10 bg-ivory/85 backdrop-blur' : 'border-b border-transparent bg-ivory'
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        scrolled ? 'border-b border-white/10 bg-ink/80 backdrop-blur-md' : 'border-b border-transparent'
       }`}
     >
       <div className="wrap flex h-16 items-center justify-between">
-        <Link href="/#top" className="flex items-center gap-2 text-[17px] font-semibold tracking-tight">
-          <span className="inline-block h-2.5 w-2.5 bg-cobalt" aria-hidden="true" />
+        <Link href="/#top" className="font-display text-lg font-bold tracking-tight text-mist">
           {site.name}
         </Link>
 
         <nav aria-label="Primary" className="hidden md:block">
-          <ul className="flex items-center gap-8">
+          <ul className="flex items-center gap-9">
             {nav.map((item) => {
               const current = isHome && active === item.id;
               return (
@@ -94,12 +91,12 @@ export default function Header() {
                     href={item.href}
                     aria-current={current ? 'location' : undefined}
                     className={`relative py-1 text-[15px] font-medium transition-colors ${
-                      current ? 'text-charcoal' : 'text-muted hover:text-charcoal'
+                      current ? 'text-white' : 'text-mist-dim hover:text-white'
                     }`}
                   >
                     {item.label}
                     <span
-                      className={`absolute -bottom-0.5 left-0 h-[2px] bg-cobalt transition-all duration-300 ${
+                      className={`absolute -bottom-0.5 left-0 h-[2px] bg-electric transition-all duration-300 ${
                         current ? 'w-full' : 'w-0'
                       }`}
                     />
@@ -116,12 +113,12 @@ export default function Header() {
           onClick={() => setOpen(true)}
           aria-haspopup="dialog"
           aria-expanded={open}
-          className="md:hidden -mr-2 flex h-11 items-center gap-2 px-2 text-[15px] font-medium"
+          className="-mr-2 flex h-11 items-center gap-2 px-2 text-[15px] font-medium text-mist md:hidden"
         >
           Menu
           <span className="flex flex-col gap-[5px]" aria-hidden="true">
-            <span className="block h-[1.5px] w-5 bg-charcoal" />
-            <span className="block h-[1.5px] w-5 bg-charcoal" />
+            <span className="block h-[1.5px] w-5 bg-mist" />
+            <span className="block h-[1.5px] w-5 bg-mist" />
           </span>
         </button>
       </div>
@@ -132,10 +129,10 @@ export default function Header() {
           role="dialog"
           aria-modal="true"
           aria-label="Menu"
-          className="on-dark fixed inset-0 z-[60] flex flex-col bg-charcoal text-ivory md:hidden"
+          className="fixed inset-0 z-[60] flex flex-col bg-ink md:hidden"
         >
           <div className="wrap flex h-16 items-center justify-between">
-            <span className="text-[17px] font-semibold tracking-tight">{site.name}</span>
+            <span className="font-display text-lg font-bold tracking-tight">{site.name}</span>
             <button
               type="button"
               onClick={() => {
@@ -147,22 +144,20 @@ export default function Header() {
               Close
             </button>
           </div>
-          <ul className="wrap mt-6 flex flex-1 flex-col gap-1">
+          <ul className="wrap mt-6 flex flex-1 flex-col">
             {nav.map((item) => (
-              <li key={item.id} className="border-b border-ivory/10">
+              <li key={item.id} className="border-b border-white/10">
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="block py-4 font-display text-4xl"
+                  className="silver block py-4 font-display text-5xl font-extrabold"
                 >
                   {item.label}
                 </Link>
               </li>
             ))}
           </ul>
-          <p className="wrap pb-8 text-sm text-ivory/60">
-            {site.location} · Open to remote projects
-          </p>
+          <p className="wrap pb-8 text-sm text-mist-dim">{site.location} · Open to remote projects</p>
         </div>
       )}
     </header>
