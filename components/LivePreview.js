@@ -8,12 +8,13 @@ const H = 800;
 /**
  * A real, scaled-down view of the deployed site inside a browser frame.
  * - Desktop: the iframe loads when the frame scrolls near the viewport
- *   (optionally after `defer` ms, so it never competes with first paint).
+ *   and `enabled` is true (optionally after `defer` ms, so it never
+ *   competes with first paint). It is removed again when `enabled` is false.
  * - Mobile / data-saver: nothing heavy loads until the visitor taps.
  * - Until the site loads (or if it cannot be framed) the placeholder
  *   shows only the project name, never a fake screenshot.
  */
-export default function LivePreview({ url, title, tone, defer = 0 }) {
+export default function LivePreview({ url, title, tone, defer = 0, enabled = true }) {
   const box = useRef(null);
   const [scale, setScale] = useState(0.4);
   const [canAuto, setCanAuto] = useState(false);
@@ -39,26 +40,30 @@ export default function LivePreview({ url, title, tone, defer = 0 }) {
   useEffect(() => {
     const el = box.current;
     if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          setInView(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: '300px' }
-    );
+    // Tracks whether the frame is near the viewport (both directions), so a
+    // preview that has scrolled far away stops running instead of lingering.
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { rootMargin: '400px' });
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
+  // The live site only runs while it is wanted (`enabled`). When a card is
+  // covered by the next one the iframe is unmounted, so only one or two
+  // embedded websites are ever running at the same time.
   useEffect(() => {
-    if (!(canAuto && inView)) return;
+    if (!(canAuto && inView && enabled)) {
+      setReady(false);
+      return;
+    }
     const t = setTimeout(() => setReady(true), defer);
     return () => clearTimeout(t);
-  }, [canAuto, inView, defer]);
+  }, [canAuto, inView, enabled, defer]);
 
-  const show = ready || requested;
+  const show = (ready || requested) && inView;
+
+  useEffect(() => {
+    if (!show) setLoaded(false);
+  }, [show]);
 
   return (
     <div

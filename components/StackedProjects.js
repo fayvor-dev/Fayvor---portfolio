@@ -1,14 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import BrowserFrame from '@/components/BrowserFrame';
 import LivePreview from '@/components/LivePreview';
 import { IconArrowUpRight, IconGithub } from '@/components/Icons';
 import { kindLabel } from '@/lib/data';
 import { clamp, useReducedMotion, useScrollFrame } from '@/lib/scroll';
 
-function Preview({ project }) {
+function Preview({ project, live }) {
   if (project.image) {
     return (
       <BrowserFrame url={project.url || 'preview'}>
@@ -20,12 +20,12 @@ function Preview({ project }) {
   }
   return (
     <BrowserFrame url={project.url}>
-      <LivePreview url={project.url} title={project.title} tone={project.tone} />
+      <LivePreview url={project.url} title={project.title} tone={project.tone} enabled={live} />
     </BrowserFrame>
   );
 }
 
-function Card({ project, index, total, cardRef }) {
+function Card({ project, index, total, cardRef, live }) {
   return (
     <div
       className="stack-wrap mb-6 md:sticky md:top-0 md:mb-0 md:h-screen md:pt-[calc(5.5rem_+_var(--off))]"
@@ -95,7 +95,7 @@ function Card({ project, index, total, cardRef }) {
 
         <div className="flex items-center md:col-span-7">
           <div className="w-full">
-            <Preview project={project} />
+            <Preview project={project} live={live} />
           </div>
         </div>
       </div>
@@ -113,18 +113,38 @@ export default function StackedProjects({ projects }) {
   const cards = useRef([]);
   const reduced = useReducedMotion();
   const n = projects.length;
+  // Only the card on top of the stack runs a live preview, plus the next card
+  // once it has slid part-way in. Covered cards would otherwise keep their
+  // embedded websites animating for nothing. `gated` is false for the plain
+  // list layout (mobile / reduced motion), where each preview manages itself.
+  const [live, setLive] = useState({ front: 0, end: 0 });
+  const liveRef = useRef(live);
+  const [gated, setGated] = useState(true);
+  const gatedRef = useRef(true);
 
   useScrollFrame(() => {
     const el = wrap.current;
     if (!el) return;
     const desktop = window.matchMedia('(min-width: 768px)').matches;
-    if (reduced || !desktop) {
+    const isGated = desktop && !reduced;
+    if (isGated !== gatedRef.current) {
+      gatedRef.current = isGated;
+      setGated(isGated);
+    }
+    if (!isGated) {
       cards.current.forEach((c) => c && (c.style.transform = ''));
       return;
     }
     const r = el.getBoundingClientRect();
     const total = r.height - window.innerHeight;
     const p = clamp(-r.top / (total > 0 ? total : 1));
+    const seg = p * (n - 1);
+    const front = n > 1 ? Math.min(n - 1, Math.floor(seg + 1e-6)) : 0;
+    const end = front < n - 1 && seg - front > 0.4 ? front + 1 : front;
+    if (front !== liveRef.current.front || end !== liveRef.current.end) {
+      liveRef.current = { front, end };
+      setLive(liveRef.current);
+    }
     cards.current.forEach((c, i) => {
       if (!c) return;
       const start = n > 1 ? i / (n - 1) : 0;
@@ -142,6 +162,7 @@ export default function StackedProjects({ projects }) {
           project={p}
           index={i}
           total={n}
+          live={!gated || i === live.front || i === live.end}
           cardRef={(node) => {
             cards.current[i] = node;
           }}
